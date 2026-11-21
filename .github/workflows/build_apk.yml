@@ -30,9 +30,15 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Scaffold Android platform structure
+      - name: Generate Android native project
         run: |
-          flutter create . --org com.itla --platforms android
+          mkdir -p /tmp/backup_manifest
+          cp android/app/src/main/AndroidManifest.xml /tmp/backup_manifest/AndroidManifest.xml || true
+          rm -rf android
+          flutter create . --org com.itla --project-name itla_organizador --platforms android
+          cp /tmp/backup_manifest/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
+          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle || true
 
       - name: Install dependencies
         run: flutter pub get
