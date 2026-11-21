@@ -22,7 +22,7 @@ class ScrapingResult {
 }
 
 class AulaVirtualService {
-  static const String baseUrl = 'https://plataformavirtual.itla.edu.do';
+  static const String baseUrl = 'https://aulavirtual.itla.edu.do';
 
   /// Extrae los datos reales del Aula Virtual con la sesión de Microsoft (MoodleSession).
   /// Reglas especificadas en el diseño:
@@ -79,11 +79,11 @@ class AulaVirtualService {
       final List<TaskItem> extractedTasks = [];
 
       // Extraer tarjetas de eventos / línea de tiempo
-      final eventNodes = document.querySelectorAll('.timeline-event-list-item, .event');
+      final eventNodes = document.querySelectorAll('.timeline-event-list-item, .event, .list-group-item');
       for (final node in eventNodes) {
-        final titleElement = node.querySelector('.event-name, h6, .text-truncate');
-        final courseElement = node.querySelector('.course-name, .text-muted');
-        final dateElement = node.querySelector('.date, time');
+        final titleElement = node.querySelector('.event-name, h6, .text-truncate, a');
+        final courseElement = node.querySelector('.course-name, .text-muted, small');
+        final dateElement = node.querySelector('.date, time, .small');
         final linkElement = node.querySelector('a');
 
         final title = titleElement?.text.trim() ?? 'Tarea';
@@ -102,7 +102,7 @@ class AulaVirtualService {
             courseName: course,
             dueDate: dueDate,
             origin: TaskOrigin.aulaVirtual,
-            url: link != null ? '$baseUrl$link' : null,
+            url: link != null ? (link.startsWith('http') ? link : '$baseUrl$link') : null,
           ),
         );
       }

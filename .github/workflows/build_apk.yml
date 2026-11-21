@@ -56,11 +56,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.0.0
-          name: App Organizadora ITLA v1.0.0
+          tag_name: v1.0.1
+          name: App Organizadora ITLA v1.0.1
           body: |
-            ### App Organizadora ITLA - Versión 1.0.0
-            - Descarga directa del APK instalable para Android.
-            - Compilado automáticamente desde GitHub Actions.
+            ### App Organizadora ITLA - Versión 1.0.1
+            - Corrección de URL oficial de Aula Virtual ITLA (https://aulavirtual.itla.edu.do/lgnx).
+            - Soporte para inicio de sesión directo con Microsoft Office 365.
+            - Modo local / offline habilitado.
           files: build/app/outputs/flutter-apk/app-release.apk
         continue-on-error: true

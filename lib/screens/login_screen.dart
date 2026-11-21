@@ -12,7 +12,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _showWebView = false;
+  bool _isLoadingWeb = true;
   InAppWebViewController? _webViewController;
+
+  static const String itlaLoginUrl = 'https://aulavirtual.itla.edu.do/lgnx';
 
   @override
   Widget build(BuildContext context) {
@@ -24,44 +27,94 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: _showWebView
-            ? Stack(
+            ? Column(
                 children: [
-                  InAppWebView(
-                    initialUrlRequest: URLRequest(
-                      url: WebUri('https://plataformavirtual.itla.edu.do/login/index.php'),
+                  // Barra superior del WebView con botón de cierre
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: isDark ? const Color(0xFF1C1D20) : Colors.white,
+                      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
                     ),
-                    onLoadStop: (controller, url) async {
-                      // Al completar el login, capturar la cookie de sesión MoodleSession
-                      final cookieManager = CookieManager.instance();
-                      final cookies = await cookieManager.getCookies(
-                        url: WebUri('https://plataformavirtual.itla.edu.do'),
-                      );
-
-                      for (final cookie in cookies) {
-                        if (cookie.name == 'MoodleSession') {
-                          await appState.loginWithMicrosoft(
-                            cookie: cookie.value,
-                            name: 'Hetsel Enrique',
-                            initials: 'HE',
-                            email: 'hetsel@itla.edu.do',
-                          );
-                          if (mounted) {
-                            setState(() => _showWebView = false);
-                          }
-                          break;
-                        }
-                      }
-                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => setState(() => _showWebView = false),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              'Iniciar sesión con Microsoft',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        if (_isLoadingWeb)
+                          SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: accentColor,
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black54,
-                      child: IconButton(
-                        icon: const Icon(Icons.close, color: Colors.white),
-                        onPressed: () => setState(() => _showWebView = false),
+
+                  // Navegador WebView
+                  Expanded(
+                    child: InAppWebView(
+                      initialUrlRequest: URLRequest(url: WebUri(itlaLoginUrl)),
+                      initialSettings: InAppWebViewSettings(
+                        javaScriptEnabled: true,
+                        domStorageEnabled: true,
+                        databaseEnabled: true,
+                        thirdPartyCookiesEnabled: true,
+                        userAgent:
+                            'Mozilla/5.0 (Linux; Android 13; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+                        useShouldOverrideUrlLoading: true,
+                        mixedContentMode: MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
                       ),
+                      onWebViewCreated: (controller) {
+                        _webViewController = controller;
+                      },
+                      onLoadStart: (controller, url) {
+                        setState(() => _isLoadingWeb = true);
+                      },
+                      onLoadStop: (controller, url) async {
+                        setState(() => _isLoadingWeb = false);
+
+                        if (url != null) {
+                          final cookieManager = CookieManager.instance();
+                          final cookies = await cookieManager.getCookies(
+                            url: WebUri('https://aulavirtual.itla.edu.do'),
+                          );
+
+                          for (final cookie in cookies) {
+                            if (cookie.name == 'MoodleSession') {
+                              // Sesión capturada con éxito
+                              await appState.loginWithMicrosoft(
+                                cookie: cookie.value,
+                                name: 'Hetsel Enrique',
+                                initials: 'HE',
+                                email: 'hetsel@itla.edu.do',
+                              );
+                              if (mounted) {
+                                setState(() => _showWebView = false);
+                                Navigator.of(context).pushReplacementNamed('/home');
+                              }
+                              return;
+                            }
+                          }
+                        }
+                      },
+                      onReceivedError: (controller, request, error) {
+                        setState(() => _isLoadingWeb = false);
+                      },
                     ),
                   ),
                 ],
@@ -73,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Spacer(),
-                    // Logo / Icono ITLA
+                    // Logo ITLA
                     Center(
                       child: Container(
                         width: 90,
@@ -150,7 +203,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () {
-                        setState(() => _showWebView = true);
+                        setState(() {
+                          _showWebView = true;
+                          _isLoadingWeb = true;
+                        });
                       },
                       icon: const Icon(Icons.account_circle_outlined, size: 24),
                       label: const Text(
@@ -160,21 +216,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 12),
 
-                    // Modo sin conexión / ver datos guardados
-                    if (appState.tasks.isNotEmpty)
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                    // Entrar directo (Modo Offline o demostración)
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
                         ),
-                        onPressed: () {
-                          // Abre la app con los últimos datos guardados
-                          Navigator.of(context).pushReplacementNamed('/home');
-                        },
-                        child: const Text('Ver últimos datos guardados (Offline)'),
                       ),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed('/home');
+                      },
+                      child: const Text('Entrar a la app (Modo Offline / Local)'),
+                    ),
 
                     const SizedBox(height: 24),
                     Text(
