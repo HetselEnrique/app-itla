@@ -5,26 +5,34 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
+    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.x'
           channel: 'stable'
           cache: true
+
+      - name: Scaffold Android platform structure
+        run: |
+          flutter create . --org com.itla --platforms android
 
       - name: Install dependencies
         run: flutter pub get
@@ -32,8 +40,21 @@ jobs:
       - name: Build APK Release
         run: flutter build apk --release
 
-      - name: Upload APK Artifact
+      - name: Upload APK as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-itla-release
+          name: App-ITLA-Release
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create Release with APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0
+          name: App Organizadora ITLA v1.0.0
+          body: |
+            ### App Organizadora ITLA - Versión 1.0.0
+            - Descarga directa del APK instalable para Android.
+            - Compilado automáticamente desde GitHub Actions.
+          files: build/app/outputs/flutter-apk/app-release.apk
+        continue-on-error: true
