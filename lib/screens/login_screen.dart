@@ -22,7 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final appState = Provider.of<AppState>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     return Scaffold(
       body: SafeArea(
@@ -31,10 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   // Barra superior del WebView con botón de cierre
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
                       color: isDark ? const Color(0xFF1C1D20) : Colors.white,
-                      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+                      border: Border(
+                          bottom: BorderSide(color: Colors.grey.shade300)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,12 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.close),
-                              onPressed: () => setState(() => _showWebView = false),
+                              onPressed: () =>
+                                  setState(() => _showWebView = false),
                             ),
                             const SizedBox(width: 8),
                             const Text(
                               'Iniciar sesión con Microsoft',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                           ],
                         ),
@@ -77,7 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         userAgent:
                             'Mozilla/5.0 (Linux; Android 13; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
                         useShouldOverrideUrlLoading: true,
-                        mixedContentMode: MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
+                        mixedContentMode:
+                            MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
                       ),
                       onWebViewCreated: (controller) {
                         _webViewController = controller;
@@ -105,7 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                               if (mounted) {
                                 setState(() => _showWebView = false);
-                                Navigator.of(context).pushReplacementNamed('/home');
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/home');
                               }
                               return;
                             }
@@ -120,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               )
             : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0, vertical: 32.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -136,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: accentColor.withOpacity(0.35),
+                              color: accentColor.withValues(alpha: 0.35),
                               blurRadius: 18,
                               offset: const Offset(0, 8),
                             ),
@@ -178,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: accentColor.withOpacity(0.12),
+                          color: accentColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: accentColor),
                         ),
@@ -211,7 +219,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.account_circle_outlined, size: 24),
                       label: const Text(
                         'Entrar con Microsoft',
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -227,7 +236,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed('/home');
                       },
-                      child: const Text('Entrar a la app (Modo Offline / Local)'),
+                      child:
+                          const Text('Entrar a la app (Modo Offline / Local)'),
                     ),
 
                     const SizedBox(height: 24),

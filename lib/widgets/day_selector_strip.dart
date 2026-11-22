@@ -15,7 +15,8 @@ class DaySelectorStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     final now = DateTime.now();
     // Generar 7 días centrados en la semana actual
@@ -52,15 +53,14 @@ class DaySelectorStrip extends StatelessWidget {
                     : (isDark ? const Color(0xFF1C1D20) : Colors.white),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isToday && !isSelected
-                      ? accentColor
-                      : Colors.transparent,
+                  color:
+                      isToday && !isSelected ? accentColor : Colors.transparent,
                   width: 2,
                 ),
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: accentColor.withOpacity(0.35),
+                          color: accentColor.withValues(alpha: 0.35),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         )

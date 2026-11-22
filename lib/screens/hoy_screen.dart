@@ -24,7 +24,8 @@ class _HoyScreenState extends State<HoyScreen> {
     final appState = Provider.of<AppState>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     final now = DateTime.now();
     // Formato: VIERNES - 20 NOV 2026
@@ -53,7 +54,8 @@ class _HoyScreenState extends State<HoyScreen> {
           onRefresh: () => appState.syncAulaVirtual(),
           color: accentColor,
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
             children: [
               // 1. Barra superior: HE, FECHA, Hola Hetsel, botón rojo Actualizar
               Row(
@@ -92,7 +94,8 @@ class _HoyScreenState extends State<HoyScreen> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w900,
-                            color: isDark ? Colors.white : const Color(0xFF1A1A1A),
+                            color:
+                                isDark ? Colors.white : const Color(0xFF1A1A1A),
                           ),
                         ),
                       ],
@@ -105,7 +108,8 @@ class _HoyScreenState extends State<HoyScreen> {
                         : () => appState.syncAulaVirtual(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: accentColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 8),
                       minimumSize: const Size(0, 36),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -138,7 +142,7 @@ class _HoyScreenState extends State<HoyScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: accentColor.withOpacity(0.12),
+                    color: accentColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: accentColor),
                   ),
@@ -193,9 +197,11 @@ class _HoyScreenState extends State<HoyScreen> {
                 children: [
                   _buildFilterChip('Hoy', FilterType.hoy, accentColor),
                   const SizedBox(width: 8),
-                  _buildFilterChip('Próximas', FilterType.proximas, accentColor),
+                  _buildFilterChip(
+                      'Próximas', FilterType.proximas, accentColor),
                   const SizedBox(width: 8),
-                  _buildFilterChip('Sin fecha', FilterType.sinFecha, accentColor),
+                  _buildFilterChip(
+                      'Sin fecha', FilterType.sinFecha, accentColor),
                 ],
               ),
 

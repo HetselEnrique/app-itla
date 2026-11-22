@@ -89,9 +89,11 @@ class _AgregarTareaScreenState extends State<AgregarTareaScreen> {
     final appState = Provider.of<AppState>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
-    final inputFill = isDark ? const Color(0xFF1C1D20) : const Color(0xFFE2EDF5);
+    final inputFill =
+        isDark ? const Color(0xFF1C1D20) : const Color(0xFFE2EDF5);
     final courses = appState.courses;
 
     return Scaffold(
@@ -175,8 +177,9 @@ class _AgregarTareaScreenState extends State<AgregarTareaScreen> {
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  validator: (v) =>
-                      v == null || v.isEmpty ? 'Escribe qué hay que hacer' : null,
+                  validator: (v) => v == null || v.isEmpty
+                      ? 'Escribe qué hay que hacer'
+                      : null,
                 ),
 
                 const SizedBox(height: 18),
@@ -187,7 +190,8 @@ class _AgregarTareaScreenState extends State<AgregarTareaScreen> {
                   onTap: _pickDueDate,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 16),
                     decoration: BoxDecoration(
                       color: inputFill,
                       borderRadius: BorderRadius.circular(14),

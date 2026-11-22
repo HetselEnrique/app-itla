@@ -18,7 +18,8 @@ class _NotasScreenState extends State<NotasScreen> {
     final appState = Provider.of<AppState>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     final notes = appState.notes;
 
@@ -54,7 +55,8 @@ class _NotasScreenState extends State<NotasScreen> {
                   onPressed: () => _showCreateNoteSheet(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: accentColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -105,7 +107,8 @@ class _NotasScreenState extends State<NotasScreen> {
                 ),
               )
             else
-              ...notes.map((note) => _buildNoteCard(context, note, isDark, accentColor)),
+              ...notes.map(
+                  (note) => _buildNoteCard(context, note, isDark, accentColor)),
 
             const SizedBox(height: 60),
           ],
@@ -149,7 +152,8 @@ class _NotasScreenState extends State<NotasScreen> {
                       dateStr,
                       style: TextStyle(
                         fontSize: 11,
-                        color: isDark ? Colors.white54 : const Color(0xFF444444),
+                        color:
+                            isDark ? Colors.white54 : const Color(0xFF444444),
                       ),
                     ),
                   ],
@@ -185,7 +189,8 @@ class _NotasScreenState extends State<NotasScreen> {
       builder: (ctx) {
         final theme = Theme.of(ctx);
         final isDark = theme.brightness == Brightness.dark;
-        final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+        final accentColor =
+            isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
         return StatefulBuilder(
           builder: (context, setSheetState) {
@@ -198,8 +203,10 @@ class _NotasScreenState extends State<NotasScreen> {
                 bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
               ),
               decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF1C1D20) : const Color(0xFFF1F3F4),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                color:
+                    isDark ? const Color(0xFF1C1D20) : const Color(0xFFF1F3F4),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(24)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -230,7 +237,9 @@ class _NotasScreenState extends State<NotasScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF282A2E) : const Color(0xFFE2EDF5),
+                      color: isDark
+                          ? const Color(0xFF282A2E)
+                          : const Color(0xFFE2EDF5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: DropdownButtonHideUnderline(
@@ -343,7 +352,8 @@ class _NotasScreenState extends State<NotasScreen> {
                 children: [
                   Text(
                     note.subject,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete_outline, color: Colors.red),

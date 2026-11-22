@@ -18,7 +18,8 @@ class CustomBottomNav extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final barColor = isDark ? const Color(0xFF1C1D20) : Colors.white;
-    final activeColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final activeColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
     final inactiveColor = isDark ? Colors.white60 : Colors.black54;
 
     return Container(
@@ -26,7 +27,7 @@ class CustomBottomNav extends StatelessWidget {
         color: Colors.transparent,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 15,
             offset: const Offset(0, -4),
           ),

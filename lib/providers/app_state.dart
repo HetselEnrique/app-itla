@@ -97,11 +97,13 @@ class AppState extends ChangeNotifier {
     _statusBanner = null;
     notifyListeners();
 
-    final result = await AulaVirtualService.syncData(_session.moodleSessionCookie);
+    final result =
+        await AulaVirtualService.syncData(_session.moodleSessionCookie);
 
     if (result.success) {
       // Mantener las tareas manuales creadas por el estudiante
-      final manualTasks = _tasks.where((t) => t.origin == TaskOrigin.manual).toList();
+      final manualTasks =
+          _tasks.where((t) => t.origin == TaskOrigin.manual).toList();
       _tasks = [...manualTasks, ...result.tasks];
       await StorageService.saveTasks(_tasks);
 
@@ -175,7 +177,8 @@ class AppState extends ChangeNotifier {
     final now = DateTime.now();
     return _tasks.where((t) {
       if (t.dueDate == null) return false;
-      return t.dueDate!.isAfter(DateTime(now.year, now.month, now.day, 23, 59, 59));
+      return t.dueDate!
+          .isAfter(DateTime(now.year, now.month, now.day, 23, 59, 59));
     }).toList();
   }
 

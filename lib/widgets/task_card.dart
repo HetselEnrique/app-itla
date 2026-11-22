@@ -16,7 +16,8 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     final cardBg = isDark ? const Color(0xFF1C1D20) : const Color(0xFF9CC6E0);
     final textColor = isDark ? Colors.white : const Color(0xFF1A1A1A);
@@ -29,7 +30,7 @@ class TaskCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -49,7 +50,8 @@ class TaskCard extends StatelessWidget {
                 if (task.isUrgent)
                   Container(
                     margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: accentColor,
                       borderRadius: BorderRadius.circular(6),
@@ -79,12 +81,15 @@ class TaskCard extends StatelessWidget {
                           color: task.isDone ? accentColor : Colors.white,
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                            color: task.isDone ? accentColor : Colors.grey.shade400,
+                            color: task.isDone
+                                ? accentColor
+                                : Colors.grey.shade400,
                             width: 2,
                           ),
                         ),
                         child: task.isDone
-                            ? const Icon(Icons.check, size: 16, color: Colors.white)
+                            ? const Icon(Icons.check,
+                                size: 16, color: Colors.white)
                             : null,
                       ),
                     ),
@@ -120,18 +125,20 @@ class TaskCard extends StatelessWidget {
                               'Tema: ${task.topic}',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: subtextColor.withOpacity(0.85),
+                                color: subtextColor.withValues(alpha: 0.85),
                               ),
                             ),
                           ],
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              Icon(Icons.schedule, size: 14, color: subtextColor),
+                              Icon(Icons.schedule,
+                                  size: 14, color: subtextColor),
                               const SizedBox(width: 4),
                               Text(
                                 task.dueDate != null
-                                    ? DateFormat('EEEE d MMMM', 'es').format(task.dueDate!)
+                                    ? DateFormat('EEEE d MMMM', 'es')
+                                        .format(task.dueDate!)
                                     : 'Sin fecha',
                                 style: TextStyle(
                                   fontSize: 12,
@@ -144,7 +151,7 @@ class TaskCard extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.08),
+                                    color: Colors.black.withValues(alpha: 0.08),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(

@@ -24,7 +24,8 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
     final appState = Provider.of<AppState>(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final accentColor = isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
+    final accentColor =
+        isDark ? const Color(0xFFFF5F00) : const Color(0xFFE4002B);
 
     final courses = appState.courses;
 
@@ -118,9 +119,11 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
               children: [
                 _buildFilterChip('Todos', CourseFilter.todos, accentColor),
                 const SizedBox(width: 8),
-                _buildFilterChip('Con tareas', CourseFilter.conTareas, accentColor),
+                _buildFilterChip(
+                    'Con tareas', CourseFilter.conTareas, accentColor),
                 const SizedBox(width: 8),
-                _buildFilterChip('Sin tareas', CourseFilter.sinTareas, accentColor),
+                _buildFilterChip(
+                    'Sin tareas', CourseFilter.sinTareas, accentColor),
               ],
             ),
 
@@ -130,19 +133,23 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
             ...filteredCourses.map((course) {
               final courseTasks = appState.getTasksForCourse(course.name);
               final taskCount = courseTasks.length;
-              final nextTask = courseTasks.isNotEmpty ? courseTasks.first : null;
+              final nextTask =
+                  courseTasks.isNotEmpty ? courseTasks.first : null;
 
               return Container(
                 margin: const EdgeInsets.only(bottom: 12),
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1C1D20) : const Color(0xFF9CC6E0),
+                  color: isDark
+                      ? const Color(0xFF1C1D20)
+                      : const Color(0xFF9CC6E0),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(16),
-                    onTap: () => _showCourseTasksModal(context, course, courseTasks),
+                    onTap: () =>
+                        _showCourseTasksModal(context, course, courseTasks),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -153,7 +160,9 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: isDark ? Colors.white : const Color(0xFF1A1A1A),
+                              color: isDark
+                                  ? Colors.white
+                                  : const Color(0xFF1A1A1A),
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -161,7 +170,9 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
                             '${course.code} - ${course.professor}',
                             style: TextStyle(
                               fontSize: 13,
-                              color: isDark ? Colors.white70 : const Color(0xFF333333),
+                              color: isDark
+                                  ? Colors.white70
+                                  : const Color(0xFF333333),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -180,7 +191,8 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
-                                  color: isDark ? Colors.white60 : Colors.black54,
+                                  color:
+                                      isDark ? Colors.white60 : Colors.black54,
                                 ),
                               ),
                             ],
@@ -258,7 +270,8 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
               const SizedBox(height: 16),
               Text(
                 course.name,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
                 '${course.code} • Prof. ${course.professor}',
@@ -269,7 +282,8 @@ class _MisCursosScreenState extends State<MisCursosScreen> {
               Expanded(
                 child: tasks.isEmpty
                     ? const Center(
-                        child: Text('No hay tareas registradas para esta materia'),
+                        child:
+                            Text('No hay tareas registradas para esta materia'),
                       )
                     : ListView.builder(
                         itemCount: tasks.length,

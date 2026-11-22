@@ -34,7 +34,6 @@ class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: polarBackground,
       colorScheme: const ColorScheme.light(
-        background: polarBackground,
         surface: polarCards,
         primary: polarAccent,
         secondary: polarCards,
@@ -96,7 +95,6 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: tormentaBackground,
       colorScheme: const ColorScheme.dark(
-        background: tormentaBackground,
         surface: tormentaCards,
         primary: tormentaAccent,
         secondary: tormentaCards,
