@@ -41,7 +41,7 @@ class AppTheme {
         onSurface: polarTextPrimary,
         error: polarAccent,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: polarCards,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -102,7 +102,7 @@ class AppTheme {
         onSurface: tormentaTextPrimary,
         error: tormentaAccent,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: tormentaCards,
         elevation: 0,
         shape: RoundedRectangleBorder(

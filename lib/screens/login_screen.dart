@@ -13,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _showWebView = false;
   bool _isLoadingWeb = true;
-  InAppWebViewController? _webViewController;
 
   static const String itlaLoginUrl = 'https://aulavirtual.itla.edu.do/lgnx';
 
@@ -85,9 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         mixedContentMode:
                             MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
                       ),
-                      onWebViewCreated: (controller) {
-                        _webViewController = controller;
-                      },
                       onLoadStart: (controller, url) {
                         setState(() => _isLoadingWeb = true);
                       },
@@ -109,11 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 initials: 'HE',
                                 email: 'hetsel@itla.edu.do',
                               );
-                              if (mounted) {
-                                setState(() => _showWebView = false);
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/home');
-                              }
+                              if (!context.mounted) return;
+                              setState(() => _showWebView = false);
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/home');
                               return;
                             }
                           }
