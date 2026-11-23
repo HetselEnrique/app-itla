@@ -71,19 +71,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Navegador WebView
                   Expanded(
-                    child: InAppWebView(
-                      initialUrlRequest: URLRequest(url: WebUri(itlaLoginUrl)),
-                      initialSettings: InAppWebViewSettings(
-                        javaScriptEnabled: true,
-                        domStorageEnabled: true,
-                        databaseEnabled: true,
-                        thirdPartyCookiesEnabled: true,
-                        userAgent:
-                            'Mozilla/5.0 (Linux; Android 13; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-                        useShouldOverrideUrlLoading: true,
-                        mixedContentMode:
-                            MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
-                      ),
+                    child: ColoredBox(
+                      color: Colors.white,
+                      child: InAppWebView(
+                        initialUrlRequest: URLRequest(url: WebUri(itlaLoginUrl)),
+                        initialSettings: InAppWebViewSettings(
+                          javaScriptEnabled: true,
+                          domStorageEnabled: true,
+                          databaseEnabled: true,
+                          thirdPartyCookiesEnabled: true,
+                          userAgent:
+                              'Mozilla/5.0 (Linux; Android 13; Pixel 4; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/120.0.6099.230 Mobile Safari/537.36',
+                          useShouldOverrideUrlLoading: true,
+                          mixedContentMode:
+                              MixedContentMode.MIXED_CONTENT_ALWAYS_ALLOW,
+                          useHybridComposition: false,
+                          transparentBackground: false,
+                          supportZoom: false,
+                          builtInZoomControls: false,
+                          displayZoomControls: false,
+                        ),
                       onLoadStart: (controller, url) {
                         setState(() => _isLoadingWeb = true);
                       },
@@ -118,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() => _isLoadingWeb = false);
                       },
                     ),
+                    ),  // ColoredBox
                   ),
                 ],
               )
