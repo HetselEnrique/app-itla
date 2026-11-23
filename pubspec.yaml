@@ -16,12 +16,9 @@ dependencies:
   shared_preferences: ^2.2.3
   http: ^1.2.1
   html: ^0.15.4
-  flutter_inappwebview: ^6.0.0
-  flutter_local_notifications: ^17.1.2
-  timezone: ^0.9.3
-
-  cupertino_ui: any
-  material_ui: any
+  flutter_inappwebview: ^6.1.5
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.9.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
